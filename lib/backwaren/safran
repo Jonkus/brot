@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+#   safran - creates an index.html file with references to all occuring 
+#            html-files in a given directory
+#   USAGE: safran <source-directory> > <target-filename>
+#   Copyright (C) 2015 Jonathan Kuhse
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# This is where the html-skelleton-files are (header, footer, index_head)
+SKELETON_DIR="./skel"
+
+SOURCE_DIR="$1"
+
+# as the index file is typically located above the source-directory, the
+# reference has to be changed. TODO: make this more dynamic
+cat $SKELETON_DIR/header | sed 's!../ref!./ref!g'
+cat $SKELETON_DIR/index_head
+
+for page in $(find $SOURCE_DIR -name "*.html" | sort); do
+	filename=$(basename $page)
+	date=$(echo $filename | cut -d. -f1)
+	author=$(echo $filename | cut -d. -f2 | sed 's!_! !g')
+	topic=$(echo $filename | cut -d. -f3 | sed 's!_! !g')
+	test -n "$topic" || topic=$date
+	test -n "$author" || author=$date
+	echo "
+	<div>
+	  $date :
+	  <a href=\"$page\"> $topic </a>
+	  $author
+	</div>
+	"
+done
+
+cat $SKELETON_DIR/footer
+   
+# <span class=\"date\"> $date: </span><a href=\"$page\"> $topic </a><span class=\"author\"> $author </span>
