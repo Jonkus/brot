@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+#   brot - a minimal blogging engine based on tools you already have
+#   Copyright (C) 2015 Jonathan Kuhse
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# your copy tool, maybe interesting, if repo is a remote server (?)
+COPY="rsync -raq"
+
+# load the configuration with these vars:
+# DEPLOYMENT_DIR=
+# PRIVATE_DEPLOYMENT_DIR=
+# WORKNBUILD_DIR=
+# REPOSITORY_DIR=
+source ./config.def
+
+echo '    brot  Copyright (C) 2015 Jonathan Kuhse
+    This program comes with ABSOLUTELY NO WARRANTY;
+    This is free software, and you are welcome to redistribute it
+    under certain conditions;
+    '
+echo 'Now building the bare brot-system...'
+git init --bare $REPOSITORY_DIR
+git init $WORKNBUILD_DIR
+
+# copy the initial file structure and git hooks/scripts
+$COPY ./lib/struct/ $WORKNBUILD_DIR/
+$COPY ./README.md $WORKNBUILD_DIR/pages/
+$COPY ./lib/hooks/post-receive $REPOSITORY_DIR/hooks/
+$COPY ./lib/backwaren $REPOSITORY_DIR
+$COPY ./config.def $REPOSITORY_DIR/backwaren/environment
+ 
+# create branches and make the first commit
+cd $WORKNBUILD_DIR
+git remote add origin $REPOSITORY_DIR 
+git checkout -b "public"
+git add *
+git commit -am "initial structure"
+git push origin public
+git checkout -b "private"
+git push origin private
+

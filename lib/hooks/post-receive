@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# load path variables for creating brot
+source ./backwaren/environment
+unset GIT_DIR
+
+# This is the tool for your desired deployment method
+TOOL="$(pwd)/backwaren/backen"
+
+# the post-receive hook receives parameters on stdin
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+
+    cd $WORKNBUILD_DIR
+    git checkout $branch > /dev/null
+    git pull origin $branch > /dev/null
+    cd -
+    $TOOL $branch
+done

@@ -1,0 +1,34 @@
+#!/bin/sh
+# This script is bread and butter of brot.
+# usage: backen <branch>
+
+MARKDOWN_TOOL="$(pwd)/backwaren/md2html.awk"
+SKELETONS_DIR="$(pwd)/backwaren/skel"
+BRANCH="$1"
+
+source ./backwaren/environment
+
+case $BRANCH in
+	"private") DEPLOYMENT_DIR=$PRIVATE_DEPLOYMENT_DIR; echo "deploying into private space";;
+	"public") echo "deploying into public space";;
+esac
+
+rsync -raq --exclude='*.markdown' --exclude='*.md' --exclude='.git' $WORKNBUILD_DIR/ $DEPLOYMENT_DIR/
+
+case $DEPLOYMENT_DIR in
+	/*) DEPLOYMENT_DIR=$DEPLOYMENT_DIR;;
+	*) DEPLOYMENT_DIR=$(pwd)/$DEPLOYMENT_DIR;;
+esac
+
+cd $WORKNBUILD_DIR
+
+for file in $(find . -name '*.md'); do
+	newFileName=$DEPLOYMENT_DIR/$(echo $file | sed 's/\(.*\.\)md/\1html/')
+	echo "parsing $newFileName"
+	cp $SKELETONS_DIR/header $newFileName
+	$MARKDOWN_TOOL $file >> $newFileName
+	cat $SKELETONS_DIR/footer >> $newFileName
+done
+
+
+
