@@ -18,9 +18,10 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-MARKDOWN_TOOL="$(pwd)/backwaren/md2html.awk"
-SKELETONS_DIR="$(pwd)/backwaren/skel"
+BACKWAREN="$(pwd)/backwaren"
+MARKDOWN_TOOL="$BACKWAREN/md2html.awk"
+SAFRAN_INDEX_TOOL="$BACKWAREN/safran"
+SKELETONS_DIR="$BACKWAREN/skel"
 BRANCH="$1"
 
 source ./backwaren/environment
@@ -39,6 +40,7 @@ esac
 
 cd $WORKNBUILD_DIR
 
+# butter with html
 for file in $(find . -name '*.md'); do
 	newFileName=$DEPLOYMENT_DIR/$(echo $file | sed 's/\(.*\.\)md/\1html/')
 	echo "parsing $newFileName"
@@ -47,5 +49,6 @@ for file in $(find . -name '*.md'); do
 	cat $SKELETONS_DIR/footer >> $newFileName
 done
 
-
-
+# safran indexing
+cd $BACKWAREN
+$SAFRAN_INDEX_TOOL $DEPLOYMENT_DIR/pages > $DEPLOYMENT_DIR/index.html

@@ -37,7 +37,7 @@ git init $WORKNBUILD_DIR
 
 # copy the initial file structure and git hooks/scripts
 $COPY ./lib/struct/ $WORKNBUILD_DIR/
-$COPY ./README.md $WORKNBUILD_DIR/pages/
+$COPY ./README.md $WORKNBUILD_DIR/pages/$(date +%Y-%m-%d).Init_Script.Readme.md
 $COPY ./lib/hooks/post-receive $REPOSITORY_DIR/hooks/
 $COPY ./lib/backwaren $REPOSITORY_DIR
 $COPY ./config.def $REPOSITORY_DIR/backwaren/environment

@@ -5,7 +5,7 @@
   </head>
   <body>
     <h3 style='margin-left: 5px; margin-top: 20px;'>
-      <a href='/' id='myname'>Free Minimalist</a>
+      <a href='../index.html' id='myname'>Free Minimalist</a>
       <span id='mytitle'>: a Brot</span>
     </h3>
     <div id='article'>

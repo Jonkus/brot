@@ -38,8 +38,8 @@ for page in $(find $SOURCE_DIR -name "*.html" | sort); do
 	echo "
 	<div>
 	  $date :
-	  <a href=\"$page\"> $topic </a>
-	  $author
+	  <a href=\"$page\">$topic</a>
+	   $author
 	</div>
 	"
 done
