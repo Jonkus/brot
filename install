@@ -26,11 +26,19 @@ COPY="rsync -raq"
 # REPOSITORY_DIR=
 . ./config.def
 
-echo '    brot  Copyright (C) 2015 Jonathan Kuhse
+echo '
+    brot  Copyright (C) 2015 Jonathan Kuhse
     This program comes with ABSOLUTELY NO WARRANTY;
     This is free software, and you are welcome to redistribute it
     under certain conditions;
     '
+echo "The blog repository will be created in                          $REPOSITORY_DIR"
+echo "The blog will deploy the website in                             $DEPLOYMENT_DIR"
+echo "when pushing into the private branch it will deploy instead to  $PRIVATE_DEPLOYMENT_DIR"
+echo "when pushing to the repository it will use a working directory: $WORKNBUILD_DIR"
+echo -n "continue? [ENTER]"
+read answer
+
 echo 'Now building the bare brot-system...'
 git init --bare $REPOSITORY_DIR
 git init $WORKNBUILD_DIR
