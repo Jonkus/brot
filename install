@@ -24,7 +24,7 @@ COPY="rsync -raq"
 # PRIVATE_DEPLOYMENT_DIR=
 # WORKNBUILD_DIR=
 # REPOSITORY_DIR=
-source ./config.def
+. ./config.def
 
 echo '    brot  Copyright (C) 2015 Jonathan Kuhse
     This program comes with ABSOLUTELY NO WARRANTY;
@@ -36,6 +36,7 @@ git init --bare $REPOSITORY_DIR
 git init $WORKNBUILD_DIR
 
 # copy the initial file structure and git hooks/scripts
+mkdir ./lib/struct/pages # TODO: only if doesnt exist
 $COPY ./lib/struct/ $WORKNBUILD_DIR/
 $COPY ./README.md $WORKNBUILD_DIR/pages/$(date +%Y-%m-%d).Init_Script.Readme.md
 $COPY ./lib/hooks/post-receive $REPOSITORY_DIR/hooks/
@@ -49,6 +50,6 @@ git checkout -b "public"
 git add *
 git commit -am "initial structure"
 git push origin public
-git checkout -b "private"
-git push origin private
+# git checkout -b "private"
+# git push origin private
 

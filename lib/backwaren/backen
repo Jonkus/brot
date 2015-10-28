@@ -19,12 +19,12 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 BACKWAREN="$(pwd)/backwaren"
-MARKDOWN_TOOL="$BACKWAREN/md2html.awk"
+MARKDOWN_TOOL="/usr/bin/env awk -f $BACKWAREN/md2html.awk"
 SAFRAN_INDEX_TOOL="$BACKWAREN/safran"
 SKELETONS_DIR="$BACKWAREN/skel"
 BRANCH="$1"
 
-source ./backwaren/environment
+. ./backwaren/environment
 
 case $BRANCH in
 	"private") DEPLOYMENT_DIR=$PRIVATE_DEPLOYMENT_DIR; echo "deploying into private space";;
@@ -39,6 +39,8 @@ case $DEPLOYMENT_DIR in
 esac
 
 cd $WORKNBUILD_DIR
+rm -rf $DEPLOYMENT_DIR/pages
+mkdir $DEPLOYMENT_DIR/pages
 
 # butter with html
 for file in $(find . -name '*.md'); do

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # load path variables for creating brot
-source ./backwaren/environment
+. ./backwaren/environment
 unset GIT_DIR
 
 # This is the tool for your desired deployment method
