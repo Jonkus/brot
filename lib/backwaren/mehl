@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+#   mehl - a minimal e-mail parser for brot
+#   Copyright (C) 2015 Cengiz Tas
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# where your mails are located in maildir syntax (one file for one mail)
+MAILDIR="/home/sirlewp/users/baeckerei/"
+# path to the pages - git repository expected
+MDSRCDIR="/home/sirlewp/.brot/"
+
+GIT_COMMITTER_NAME="mehl <baeckerei@tas.fm>"
+GIT_AUTHOR_NAME="mehl <baeckerei@tas.fm>"
+
+if [ ! -d .trash ]; then
+    echo "creating .trash directory to dump converted mails."
+    mkdir .trash
+fi
+
+for FILE in `find $MAILDIR/new/ -type f`
+do
+
+gpg --verify $FILE
+
+if [ $? -eq 0 ] 
+then echo "All is well"
+# decoding headers (RFC 2047)
+SUBJECT=$(reformime -c UTF-8 -h "$(grep -i '^Subject:' $FILE)"  | awk -F ': ' '{print $2}' | tr " " "_")
+  #SUBJECT=$(grep Subject $FILE | awk -F ': ' '{print $2}' | tr " " "_")
+MAILDATE=$(grep Date $FILE | awk -F ': ' '{print $2}' )
+DATE=$(date -d"$MAILDATE" +%Y-%m-%d)
+FROM=$(reformime -c UTF-8 -h "$(grep -i '^From:' $FILE)" | cut -d' ' -f2- | sed -e "s|.*<||" -e "s|>.*||" | cut -d@ -f1)
+  #FROM=$(grep From $FILE | cut -d' ' -f2- | sed -e "s|.*<||" -e "s|>.*||" | cut -d@ -f1)
+#decrypt body with gpg-key baeckerei@tas.fm
+TEXT=$(awk '/-----BEGIN PGP SIGNATURE-----/ {f=0;next} f; /-----BEGIN PGP SIGNED MESSAGE-----/ {f=1}' $FILE | awk 'NR > 2 { print }')
+  FNAME=$DATE"."$FROM"."$SUBJECT".md"
+  echo "$TEXT" | tr -d '\r' > $MDSRCDIR/pages/$FNAME
+ git commit -m "$SUBJECT"
+
+echo "adding to git repository"
+git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" add .
+git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" commit -m "$SUBJECT"
+git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" push
+else
+    echo "Uupps! Problem with signature"
+fi
+  mv $FILE .trash
+done

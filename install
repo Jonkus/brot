@@ -54,7 +54,7 @@ $COPY ./config.def $REPOSITORY_DIR/backwaren/environment
 # create branches and make the first commit
 cd $WORKNBUILD_DIR
 git remote add origin $REPOSITORY_DIR 
-git checkout -b "public"
+git symbolic-ref HEAD refs/heads/public
 git add *
 git commit -am "initial structure"
 git push origin public

@@ -1,6 +1,6 @@
     </div>
     <p class='timestamp'>
-        ---SIGNATUR---
+	This blog is made with sh, awk, git, rsync, html, css, markdown and nothing else!
     </p>
   </body>	
 </html>
