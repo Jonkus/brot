@@ -27,18 +27,18 @@ BRANCH="$1"
 . ./backwaren/environment
 
 case $BRANCH in
-	"private") DEPLOYMENT_DIR=$PRIVATE_DEPLOYMENT_DIR; echo "deploying into private space";;
+	"private") DEPLOYMENT_DIR=$DEPLOYMENT_DIR_PRIVATE; echo "deploying into private space";;
 	"public") echo "deploying into public space";;
 esac
 
-rsync -raq --exclude='*.markdown' --exclude='*.md' --exclude='.git' $WORKNBUILD_DIR/ $DEPLOYMENT_DIR/
+rsync -raq --exclude='*.markdown' --exclude='*.md' --exclude='.git' $WORKINGCOPY/ $DEPLOYMENT_DIR/
 
 case $DEPLOYMENT_DIR in
 	/*) DEPLOYMENT_DIR=$DEPLOYMENT_DIR;;
 	*) DEPLOYMENT_DIR=$(pwd)/$DEPLOYMENT_DIR;;
 esac
 
-cd $WORKNBUILD_DIR
+cd $WORKINGCOPY
 rm -rf $DEPLOYMENT_DIR/pages
 mkdir $DEPLOYMENT_DIR/pages
 

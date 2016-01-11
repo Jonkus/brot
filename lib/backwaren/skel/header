@@ -1,12 +1,11 @@
 <html>
   <head>
-    <title>Brot</title>
+    <title>BUCH</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width">
     <link href='../ref/main.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <h3 style='margin-left: 5px; margin-top: 20px;'>
-      <a href='../index.html' id='myname'>Free Minimalist</a>
-      <span id='mytitle'>: a Brot</span>
-    </h3>
-    <div id='article'>
+    <h2>
+	<p class="title"><a href='../index.html'>free minimalists</a> <span style="color: #333">a journal</p>
+    </h2>

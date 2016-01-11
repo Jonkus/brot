@@ -4,12 +4,12 @@ BROT
 
 ## Installation ##
 
- 1. Configure your paths in config.def
- 2. Run the _./build_ script
+ 1. Edit _config.def_
+ 2. Run the _./install_ script
 
 ## Overview ##
 
-#### What is brot? ####
+#### What is buch? ####
 
 Our goal is to create a minimal yet functional blogging engine. The usage of
 standard unix tools like awk or sh allows us to archive tasks others need 
@@ -17,28 +17,28 @@ bloat-ware for.
 
 #### How does it work? ####
 
-The heart of brot is a git repository containing your blog-articles. You can 
+The heart of buch is a git repository containing your blog-articles. You can 
 thus checkout this repostitory and commit new blog entries or change them.
 By pushing your changes a git-hook is executed which converts your 
-markdown-files into html and adds an index entry.
+markdown-files and generates an index.
 
-With the help of mehl you can also send an e-mail with your article as
+Mehl you can also send an e-mail with your article as
 plain/text to a functional e-mailbox. Mehl then commits and pushes it to the 
 blog-repository, so the new entry appears. (tbd)
 
 ## Usage ##
 
- 1. _git clone [blog-repository-location]_
- 2. make your changes and additions (mainly in config.def)
- 3. commit und push to your repo
-
-     - public-branch deploys in the _DEPLOYMENT\_DIR_
-     - private-branch deploys in the _PRIVATE\_DEPLOYMENT\_DIR_
+ 1. Put your markdown files into the pages/ directory of your working copy ($WORKINGCOPY) 
+ 2. Add, commit and push your changes to your bare repository ($BAREREPOSITORY)
+  a. public-branch du in the _DEPLOYMENT\_DIR_
+  b. private-branch deploys in the _PRIVATE\_DEPLOYMENT\_DIR_
 
  4. watch your generated html-files in your deployment-path
 
-## ToDo's ##
+## TODOs ##
 
- - including mehl
- - full utf-8 support
+ - brot should be called buch. refactoring needed.
+ - support for attachments in mehl
+ - a bare repo can be dropped in a local environment
+   installation script should support this
 

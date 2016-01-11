@@ -1,0 +1,20 @@
+# Your html-files and attachments will be deployed here (normaly your webserver).
+DEPLOYMENT_DIR="/home/sirlewp/html/blog"
+
+# Your restricted area.
+DEPLOYMENT_DIR_PRIVATE="/home/sirlewp/html/blog_private"
+
+# The bare-repository of your blog. Clone this from your local machine. 
+BAREREPOSITORY="/home/sirlewp/repositories/free_minimalists.git"
+
+# This directory is used for git checkout and contains the plain
+#  markdown files. So you can decide, whether you want to make them
+#  public available or even non-permanent in your /tmp/, its all about
+#  your choice
+WORKINGCOPY="/home/sirlewp/repositories/free_minimalists.workingcopy"
+
+# create new directories, if needed
+test -d $DEPLOYMENT_DIR || mkdir $DEPLOYMENT_DIR || { echo "Could not create $DEPLOYMENT_DIR"; exit 1; }
+test -d $DEPLOYMENT_DIR_PRIVATE || mkdir $DEPLOYMENT_DIR_PRIVATE || { echo "Could not create $DEPLOYMENT_DIR_PRIVATE"; exit 2; }
+test -d $BAREREPOSITORY || mkdir $BAREREPOSITORY || { echo "Could not create $BAREREPOSITORY"; exit 4; }
+test -d $WORKINGCOPY || mkdir $WORKINGCOPY || { echo "Could not create $WORKINGCOPY"; exit 3; }

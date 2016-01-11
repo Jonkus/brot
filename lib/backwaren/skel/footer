@@ -1,6 +1,3 @@
-    </div>
-    <p class='timestamp'>
-	This blog is made with sh, awk, git, rsync, html, css, markdown and nothing else!
-    </p>
+	<p class="footer">© 2015 This blog is made with BUCH.</p>
   </body>	
 </html>
