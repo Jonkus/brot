@@ -19,7 +19,7 @@
 # where your mails are located in maildir syntax (one file for one mail)
 MAILDIR="/home/sirlewp/users/baeckerei/"
 # path to the pages - git repository expected
-MDSRCDIR="/home/sirlewp/.brot/"
+MDSRCDIR="/home/sirlewp/repositories/free_minimalists.workingcopy"
 
 GIT_COMMITTER_NAME="mehl <baeckerei@tas.fm>"
 GIT_AUTHOR_NAME="mehl <baeckerei@tas.fm>"
@@ -47,12 +47,12 @@ FROM=$(reformime -c UTF-8 -h "$(grep -i '^From:' $FILE)" | cut -d' ' -f2- | sed 
 TEXT=$(awk '/-----BEGIN PGP SIGNATURE-----/ {f=0;next} f; /-----BEGIN PGP SIGNED MESSAGE-----/ {f=1}' $FILE | awk 'NR > 2 { print }')
   FNAME=$DATE"."$FROM"."$SUBJECT".md"
   echo "$TEXT" | tr -d '\r' > $MDSRCDIR/pages/$FNAME
- git commit -m "$SUBJECT"
+ #git commit -m "$SUBJECT"
 
 echo "adding to git repository"
 git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" add .
 git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" commit -m "$SUBJECT"
-git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" push
+git --git-dir="$MDSRCDIR"/.git --work-tree="$MDSRCDIR" push origin public
 else
     echo "Uupps! Problem with signature"
 fi

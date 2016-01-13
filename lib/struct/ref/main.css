@@ -1,10 +1,20 @@
 /* font: 18px/1.5em 'Roboto Mono', 'Consolas', 'Andale Mono', 'Monaco', 'Courier New', Courier, monospace; */
 
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 400;
+  src: url(font/vollkorn-regular-webfont.woff) format('woff');
+}
+
 body {
-	font-size: 1.1em 'Roboto', sans-serif; 
-	line-height: 1.5em; 
+
+	font-family: 'Vollkorn', serif;
+	font-size: 1.1em;
+	// line-height: 1.5em; 
 	max-width: 45em; 
-	margin: auto; padding: 5% 5%;
+	margin: 2ch auto 0px;
+	padding: 2ch 2ch;
      } 
 
 img  {
@@ -19,21 +29,32 @@ blockquote {
 	margin:0 5% ;
 	padding:1.4em 1em 0.1em 1em;
 	line-height: 120%;
+	color: grey;
 }
 
 .title a {
-      text-shadow: none;
-      background-image: none;
-      background-color: #333;
-      color: #EEE;
-      padding: 1ch;
-      border: 0;
+	text-decoration: underline;
+	text-shadow: none;
+	background-image: none;
+	background-color: #333;
+	color: #EEE;
+	padding: 0.7ch;
+	border: 0;
 }
 
 
 p { 
 	line-height: 120%; 
   }
+
+a {
+
+	text-decoration: none;
+}
+
+.article {
+	font-size: 1.3em;
+}
 
 .footer {
 	text-align: right;
@@ -42,4 +63,6 @@ p {
 
 .timestamp {
 	font-size: 0.7em;
+	color: grey;
+	line-height: 80%;
 }

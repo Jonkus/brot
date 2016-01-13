@@ -36,8 +36,8 @@ for page in $(find $SOURCE_DIR -name "*.html" | sort); do
 	test -n "$topic" || topic=$date
 	test -n "$author" || author=$date
 	echo "
-	<p>
-	  <span class="timestamp">$date @ $author</span><br><a href=\"pages/$filename\">$topic</a>
+	<p class=article>
+	  <a href=\"pages/$filename\">$topic</a><br><span class=timestamp>$date | $author</span>
 	</p>
 	"
 done
