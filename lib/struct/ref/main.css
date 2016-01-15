@@ -66,11 +66,18 @@ a {
 	line-height: 80%;
 }
 
-code {
-	background-color: #EEE;
-	padding: 1ch;
+
+
+pre {
 	font-family: monospace;
+	background-color: #EEE;
+	padding: 0ch 2ch 2ch;
+	border-radius: 5px;
+	overflow: auto;
+  	word-wrap: normal;
+  	white-space: pre;
 }
+
 
 hr {
 
