@@ -249,7 +249,7 @@ BEGIN {
 !html && /^<(address|blockquote|center|dir|div|dl|fieldset|form|h[1-6r]|\
 isindex|menu|noframes|noscript|ol|p|pre|table|ul|!--)/ {
 	if(code)
-		oprint("</pre></code>");
+		oprint("</code></pre>");
 	for(; !text && block[nl] == "blockquote"; nl--)
 		oprint("</blockquote>");
 	match($0, /^<(address|blockquote|center|dir|div|dl|fieldset|form|h[1-6r]|\
@@ -340,7 +340,7 @@ blank && ! /^$/ {
 # Close old blocks and open new ones
 nnl != nl || nblock[nl] != block[nl] {
 	if(code){
-		oprint("</pre></code>");
+		oprint("</code></pre>");
 		code = 0;
 	}
 	printp(par);
@@ -379,14 +379,14 @@ code && /^$/ {
 		oprint("");
 	blank = 0;
 	if(!code)
-		oprint("<code><pre>");
+		oprint("<pre><code>");
 	code = 1;
 	$0 = eschtml($0);
 	oprint($0);
 	next;
 }
 code {
-	oprint("</pre></code>");
+	oprint("</code></pre>");
 	code = 0;
 }
 
@@ -413,7 +413,7 @@ text && /^-+$/ {printp("h2"); next;}
 
 END {
 	if(code){
-		oprint("</pre></code>");
+		oprint("</code></pre>");
 		code = 0;
 	}
 	printp(par);

@@ -39,8 +39,8 @@ case $DEPLOYMENT_DIR in
 esac
 
 cd $WORKINGCOPY
-rm -rf $DEPLOYMENT_DIR/pages
-mkdir $DEPLOYMENT_DIR/pages
+rm -rf $DEPLOYMENT_DIR/pages/*
+mkdir -p $DEPLOYMENT_DIR/pages
 
 # butter with html
 for file in $(find . -name '*.md'); do
@@ -67,6 +67,9 @@ for file in $(find . -name '*.md'); do
 	$MARKDOWN_TOOL $file >> $newFileName
 	cat $SKELETONS_DIR/footer >> $newFileName
 done
+
+echo "changing access mode ..."
+chmod -R 755 $DEPLOYMENT_DIR/pages
 
 # safran indexing
 cd $BACKWAREN
