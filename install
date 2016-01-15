@@ -43,11 +43,11 @@ git init $WORKINGCOPY
 mkdir ./lib/struct/pages # TODO: only if doesnt exist
 wget http://vollkorn-typeface.com/download/vollkorn-3-005.zip
 unzip vollkorn-3-005.zip -d font
-mkdir $WORKINGCOPY/ref/font/
+# mkdir $WORKINGCOPY/ref/font/
 $COPY ./lib/struct/ $WORKINGCOPY/
 $COPY font/WOFF/*.woff $WORKINGCOPY/ref/font/
 rm -rf font vollkorn*
-$COPY ./README.md $WORKINGCOPY/pages/$(date +%Y-%m-%d).Init_Script.Readme.md
+$COPY ./README.md $WORKINGCOPY/pages/$(date +%Y-%m-%d).readme.init_script.md
 $COPY ./lib/hooks/post-receive $BAREREPOSITORY/hooks/
 $COPY ./lib/backwaren $BAREREPOSITORY
 $COPY ./config.def $BAREREPOSITORY/backwaren/environment

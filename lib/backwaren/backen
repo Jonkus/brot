@@ -45,8 +45,25 @@ mkdir $DEPLOYMENT_DIR/pages
 # butter with html
 for file in $(find . -name '*.md'); do
 	newFileName=$DEPLOYMENT_DIR/$(echo $file | sed 's/\(.*\.\)md/\1html/')
+	### TODO
+	filename=$(basename $newFileName)
+        date=$(echo $filename | cut -d. -f1)
+        topic=$(echo $filename | cut -d. -f2 | sed 's!_! !g')
+        author=$(echo $filename | cut -d. -f3 | sed 's!_! !g')
+	### TODO
+
 	echo "parsing $newFileName"
 	cp $SKELETONS_DIR/header $newFileName
+	
+	echo "
+        <p class=article>
+          $topic<br><span class=timestamp>$date | $author</span>
+        </p>
+	<hr>
+        " >> $newFileName
+
+
+
 	$MARKDOWN_TOOL $file >> $newFileName
 	cat $SKELETONS_DIR/footer >> $newFileName
 done

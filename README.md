@@ -1,13 +1,9 @@
-
-BROT
-====
-
-## Installation ##
+### Installation ###
 
  1. Edit _config.def_
  2. Run the _./install_ script
 
-## Overview ##
+### Overview ###
 
 #### What is buch? ####
 
@@ -26,7 +22,7 @@ Mehl you can also send an e-mail with your article as
 plain/text to a functional e-mailbox. Mehl then commits and pushes it to the 
 blog-repository, so the new entry appears. (tbd)
 
-## Usage ##
+### Usage ###
 
  1. Put your markdown files into the pages/ directory of your working copy ($WORKINGCOPY) 
  2. Add, commit and push your changes to your bare repository ($BAREREPOSITORY)
@@ -35,7 +31,7 @@ blog-repository, so the new entry appears. (tbd)
 
  4. watch your generated html-files in your deployment-path
 
-## TODOs ##
+### TODOs ###
 
  - brot should be called buch. refactoring needed.
  - support for attachments in mehl

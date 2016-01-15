@@ -31,8 +31,8 @@ cat $SKELETON_DIR/index_head
 for page in $(find $SOURCE_DIR -name "*.html" | sort); do
 	filename=$(basename $page)
 	date=$(echo $filename | cut -d. -f1)
-	author=$(echo $filename | cut -d. -f2 | sed 's!_! !g')
-	topic=$(echo $filename | cut -d. -f3 | sed 's!_! !g')
+	topic=$(echo $filename | cut -d. -f2 | sed 's!_! !g')
+	author=$(echo $filename | cut -d. -f3 | sed 's!_! !g')
 	test -n "$topic" || topic=$date
 	test -n "$author" || author=$date
 	echo "
