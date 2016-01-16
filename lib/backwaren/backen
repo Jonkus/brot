@@ -69,8 +69,9 @@ for file in $(find . -name '*.md'); do
 done
 
 echo "changing access mode ..."
-chmod -R 755 $DEPLOYMENT_DIR/pages
 
 # safran indexing
 cd $BACKWAREN
 $SAFRAN_INDEX_TOOL $DEPLOYMENT_DIR/pages > $DEPLOYMENT_DIR/index.html
+
+chmod -R 755 $DEPLOYMENT_DIR
