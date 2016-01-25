@@ -28,7 +28,7 @@ SOURCE_DIR="$1"
 cat $SKELETON_DIR/header | sed 's!../ref!./ref!g'
 cat $SKELETON_DIR/index_head
 
-for page in $(find $SOURCE_DIR -name "*.html" | sort); do
+for page in $(find $SOURCE_DIR -name "*.html" | sort -r); do
 	filename=$(basename $page)
 	date=$(echo $filename | cut -d. -f1)
 	topic=$(echo $filename | cut -d. -f2 | sed 's!_! !g')
